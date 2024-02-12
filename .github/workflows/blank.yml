@@ -1,11 +1,8 @@
-name: CI pipeline
+name: ci/cd pipeline
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -23,3 +20,15 @@ jobs:
       - name: push image to docker hub
         run: docker push saurabh0540/cicd-pipeline:latest
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: pull image from docker hub
+        run: docker pull saurabh0540/cicd-pipeline:latest
+        
+      - name: Delete old docker container
+        run: docker rm -f cicd-pipeline-container || true
+        
+      - name: run docker container
+        run: docker run -d -p 8080:8080 --name cicd-pipeline-container saurabh0540/cicd-pipeline
