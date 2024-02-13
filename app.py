@@ -25,12 +25,14 @@ def main():
 # when user click on submit button after fill the form then submit button hit the url=http://127.0.0.1:11111/predict
 @app.route('/predict',methods=["post"])
 def predict():
+    
     # data come from HTML form
     area=int(request.form['area'])
     bhk=int(request.form['bhk'])
     bath=int(request.form['bath'])
     balcony=int(request.form['balcony'])
     areatype=request.form['areatype']
+    
     # predict price
     inputdata=pd.DataFrame([[areatype,area,bath,balcony,bhk]],columns=['area_type','total_sqft', 'bath','balcony','bhk'])
     prediction=pipe.predict(inputdata)
