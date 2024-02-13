@@ -22,16 +22,3 @@ jobs:
         
       - name: push image to docker hub
         run: docker push saurabh0540/cicd-pipeline:latest
-
-  deploy:
-    needs: build
-    runs-on: self-hosted
-    steps:
-      - name: pull image from docker hub
-        run: docker pull saurabh0540/cicd-pipeline:latest
-        
-      - name: Delete old docker container
-        run: docker rm -f cicd-pipeline-container || true
-        
-      - name: run docker container
-        run: docker run -d -p 8080:8080 --name cicd-pipeline-container saurabh0540/cicd-pipeline
