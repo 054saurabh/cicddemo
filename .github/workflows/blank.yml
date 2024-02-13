@@ -1,24 +1,34 @@
-name: ci pipeline
+name: ci/cd pipeline
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout from source
+      - name: Check source
         uses: actions/checkout@v3
-  
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_NAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+        
+      - name: login to docker hub
+        run: docker login -u ${{ secrets.DOCKER_NAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         
       - name: Build docker image
-        run: docker build -t saurabh0540/cicd-pipeline .
+        run: docker build -t cicd-pipeline .
         
       - name: push image to docker hub
         run: docker push saurabh0540/cicd-pipeline:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: pull image from docker hub
+        run: docker pull saurabh0540/cicd-pipeline:latest
+        
+      - name: Delete old docker container
+        run: docker rm -f cicd-pipeline-container || true
+        
+      - name: run docker container
+        run: docker run -d -p 8080:8080 --name cicd-pipeline-container saurabh0540/cicd-pipeline
