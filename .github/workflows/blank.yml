@@ -20,5 +20,8 @@ jobs:
       - name: Build docker image
         run: docker build -t cicd-pipeline .
         
+      - name: add correct tage
+        run: docker tag cicd-pipeline saurabh0540/cicd-pipeline
+        
       - name: push image to docker hub
         run: docker push saurabh0540/cicd-pipeline:latest
