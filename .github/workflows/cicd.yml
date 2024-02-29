@@ -30,33 +30,13 @@ jobs:
     runs-on: self-hosted
     needs: build
     steps:
-     - name: Checkout Repository
-       uses: actions/checkout@v2
-
-     - name: Set up Docker
-       uses: docker/setup-docker@v2
-       with:
-         dockerfile: Dockerfile
-         container-name: my-container
-
-     - name: Log in to Docker Hub
-       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_NAME }}" --password-stdin
-
-     - name: Pull Docker Image
-       run: docker pull saurabh0540/cicd-pipeline:latest
-
-     - name: Run Docker Container
-       run: docker run -d --name my-container -p 80:8080 saurabh0540/cicd-pipeline:latest
-
-     - name: Display Container Logs
-       run: docker logs my-container
-      
-      # - name: pull Docker image
-      #   run: sudo docker pull saurabh0540/cicd-pipeline:latest
+    
+      - name: pull Docker image
+        run: sudo docker pull saurabh0540/cicd-pipeline:latest
         
-      # - name: delete old Docker container
-      #   run: sudo docker rm -f cicd-pipeline-container || true
+      - name: delete old Docker container
+        run: sudo docker rm -f cicd-pipeline-container || true
         
-      # - name: run Docker container
-      #   run: sudo docker run -d -p 80:8080 --name cicd-pipeline-container saurabh0540/cicd-pipeline
+      - name: run Docker container
+        run: sudo docker run -d -p 80:8080 --name cicd-pipeline-container saurabh0540/cicd-pipeline
 
