@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 import pickle
 
-
 # create app in flash
 app=Flask(__name__)
 
