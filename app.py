@@ -39,7 +39,6 @@ def predict():
     # render the predicted price on pass.html file
     return render_template('pass.html',n=prediction,area=area,bhk=bhk,bath=bath)
     
-# finally run this app on port=8080
 if __name__=="__main__":
     
     app.run(host='0.0.0.0',port=8080)
