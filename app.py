@@ -1,5 +1,3 @@
-
-#Build an "__API__" to take data from the user and pass this data to the model for prediction and finally display the predicted value
 from flask import Flask,render_template,request,flash
 import numpy as np
 import pandas as pd
