@@ -33,6 +33,5 @@ jobs:
           script: |
             # Pull the Docker image on AWS Ubuntu
             docker pull saurabh0540/cicd-pipeline:latest
-
             # Run the Docker container
             docker run -d --name cicd-pipeline-container -p 8080:80 saurabh0540/cicd-pipeline:latest
