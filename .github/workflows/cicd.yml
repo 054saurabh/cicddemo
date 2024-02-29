@@ -31,11 +31,11 @@ jobs:
     needs: build
     steps:
       - name: pull Docker image
-        run: docker pull saurabh0540/cicd-pipeline:latest
+        run: sudo docker pull saurabh0540/cicd-pipeline:latest
         
       - name: delete old Docker container
-        run: docker rm -f cicd-pipeline-container || true
+        run: sudo docker rm -f cicd-pipeline-container || true
         
       - name: run Docker container
-        run: docker run -d -p 8080:8080 --name cicd-pipeline-container saurabh0540/cicd-pipeline
+        run: sudo docker run -d -p 8080:8080 --name cicd-pipeline-container saurabh0540/cicd-pipeline
 
