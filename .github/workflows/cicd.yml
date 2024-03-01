@@ -20,7 +20,8 @@ jobs:
         run: docker login -u $username -p $password
         
       - name: Build docker image
-        run: docker build -t cicd-pipeline .
+        # run: docker build -t cicd-pipeline .
+        run: docker build --tag cicd-pipeline .
         
       - name: add correct tag
         run: docker tag cicd-pipeline saurabh0540/cicd-pipeline
