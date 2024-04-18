@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest]
     steps:
     
       - name: Check source
@@ -31,7 +31,7 @@ jobs:
 
 
   deploy:
-    runs-on: self-hosted
+    runs-on: [aws-ec2]
     needs: build
     steps:
     
@@ -41,6 +41,6 @@ jobs:
       - name: delete old Docker container
         run: sudo docker rm -f cicd-pipeline-container || true
         
-      - name: run Docker container
+      - name: run Docker container in detach mood
         run: sudo docker run -d -p 8080:8080 --name cicd-pipeline-container saurabh0540/cicd-pipeline
 
